@@ -1,0 +1,66 @@
+﻿<html>
+    <head>
+        <meta charset="utf-8">
+        <title>打地鼠</title>
+
+        <body>
+            <div id="out">
+            </div>
+            <h1>
+                得分:<span id="score_">0</span><br>
+                倒數:<input type="text" value="30" id="clock">
+            </h1>
+        </body>
+    <script >
+        var out = document.getElementById("out");
+        onload = function () {
+            for(var i = 0; i < 9; i++){
+                var p = document.createElement("p");
+                out.appendChild(p);
+            }
+        }
+        var count = 0;
+        var score = 0;
+        var ps = document.getElementsByTagName("p");
+        function ratappear(){
+            var index = Math.floor(Math.random()*ps.length);
+            for(var i = 0; i < ps.length; i++){
+                ps[i].style.background = "url(img/hole.jpg)";
+            }
+            ps[index].style.background = "url(img/char.jpg)";
+            count = index;
+            ps[index].className = "mouse";
+        }
+        
+        setInterval("ratappear()", 1500);
+        var clock = document.getElementById("clock");
+        var sc = document.getElementById("score_");
+
+        var second = 30;
+        var timer;
+       
+        function timebar(){
+            if(second != 0){
+                second--;
+                clock.value = second + "s";
+            } else {
+                clearInterval(timer);
+                alert("遊戲結束，得分" + score);
+            }
+        }
+        timer = setInterval("timebar()", 1000);
+       //當地鼠輩打擊切換圖片//
+        onclick = function (event){
+            var obj = event.target;
+            if(obj.className == "mouse"){
+                ps[count].style.background = "url(img/hit.jpg)";
+                ps[count].className = "";
+                score+=1;
+                sc.innerHTML = score;
+            }
+        }
+    </script>
+         </head>
+   
+</html>
+
